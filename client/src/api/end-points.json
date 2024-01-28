@@ -1,0 +1,5 @@
+{
+    "getAllProducts": "/products",
+    "getAllCoupons": "/admin/coupons/all",
+    "getAvailableCoupons": "/coupons/available"
+}
