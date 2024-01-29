@@ -1,12 +1,12 @@
 import { ADD_TO_CART } from "./action-type";
 // reducers.js
-const initialState = {
+const initialState: any = {
     cart: [],
     cartTotal: 0,
     saveForLetter: []
 };
 
-const rootReducer = (state = initialState, action) => {
+const rootReducer = (state: any = initialState, action: any) => {
     switch (action.type) {
         case ADD_TO_CART:
             return { ...state, 

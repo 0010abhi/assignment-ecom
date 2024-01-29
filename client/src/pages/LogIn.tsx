@@ -12,6 +12,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { setLocalStorage } from '../state/local-storage';
+import { useNavigate } from 'react-router-dom';
 
 function Copyright(props: any) {
   return (
@@ -30,6 +32,7 @@ function Copyright(props: any) {
 const defaultTheme = createTheme();
 
 export default function LogIn() {
+  const navigate = useNavigate();
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -37,6 +40,16 @@ export default function LogIn() {
       email: data.get('email'),
       password: data.get('password'),
     });
+    // workaround to show role
+    if (data.get('email') === 'user') {
+      setLocalStorage('isLoggedIn', 'true');
+      setLocalStorage('role', 'user');
+      navigate('/');
+    } else if (data.get('email') === 'admin') {
+      setLocalStorage('isLoggedIn', 'true');
+      setLocalStorage('role', 'admin');
+      navigate('/');
+    }
   };
 
   return (
