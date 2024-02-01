@@ -27,7 +27,7 @@ export default function ProductCard({ data }: any) {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small" onClick={() => dispatch(addToCart(data))}>Add to Cart</Button>
+                <Button size="small" onClick={() => dispatch(addToCart({...data, quantity: 1}))}>Add to Cart</Button>
                 <Button size="small">Learn More</Button>
             </CardActions>
         </Card>

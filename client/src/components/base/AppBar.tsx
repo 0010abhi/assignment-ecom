@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import Badge from '@mui/material/Badge';
 import HomeIcon from '@mui/icons-material/Home';
 import { getValueFromLocalStorage, setLocalStorage } from '../../state/local-storage';
+import { useSelector } from 'react-redux';
 
 
 // const pages = ['Products', 'Orders', 'Coupons', 'Cart'];
@@ -23,6 +24,7 @@ const settings = ['Logout'];
 
 function ResponsiveAppBar() {
     const navigate = useNavigate();
+    const { cart }: any = useSelector(state => state);
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
     const [pages, setPages] = React.useState<Array<string>>(['Products']);
@@ -45,11 +47,16 @@ function ResponsiveAppBar() {
     const logOut = () => {
         setAnchorElUser(null);
         setLocalStorage('isLoggedIn', 'false');
+        setPages(['Products']);
     }
 
-    // React.useEffect(() => {
-
-    // },[]);
+    React.useEffect(() => {
+        if (getValueFromLocalStorage('isLoggedIn') === 'true' && getValueFromLocalStorage('role') === 'user') {
+            setPages([...pages, 'Cart'])
+        } else if (getValueFromLocalStorage('isLoggedIn') === 'true' && getValueFromLocalStorage('role') === 'admin') {
+            setPages(['Coupons']);
+        }
+    }, []);
 
     return (
         <AppBar position="static">
@@ -132,7 +139,7 @@ function ResponsiveAppBar() {
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => {
                             return page === 'Cart' ?
-                                <Badge style={{ border: "1px solid black" }} badgeContent={4} color="primary">
+                                <Badge style={{ margin: "15px 5px" }} badgeContent={cart.length} color="primary">
                                     <Button
 
                                         key={page}

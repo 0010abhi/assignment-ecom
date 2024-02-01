@@ -11,7 +11,7 @@ import Paper from '@mui/material/Paper';
 export default function ProductTable({ data, title }: any) {
     return (
         <TableContainer component={Paper}>
-            <h3>{title}</h3>
+            <h3 style={{ paddingLeft: '8px' }}>{title}</h3>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                     <TableRow>
@@ -37,7 +37,6 @@ export default function ProductTable({ data, title }: any) {
                                 <div>
                                     {row.description}
                                 </div>
-
                             </TableCell>
                             <TableCell>{row.quantity}</TableCell>
                             <TableCell align="right">{row.price}</TableCell>
